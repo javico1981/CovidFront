@@ -32,7 +32,15 @@ export class SidebarComponent implements OnInit {
 
       let ruta_admin = { path: '/app/user-list', title: 'Gestion usuarios',  icon:'manage_accounts', class: '' }
 
-      ROUTES.push(ruta_admin)
+      if (!ROUTES.includes({ path: '/app/user-list', title: 'Gestion usuarios',  icon:'manage_accounts', class: '' })) {
+        ROUTES.push(ruta_admin)
+      }
+    }else {
+      
+      if (ROUTES[3]) {
+       
+        ROUTES.splice(3, 1)
+      }
     }
 
     this.menuItems = ROUTES.filter(menuItem => menuItem);

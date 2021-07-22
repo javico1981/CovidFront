@@ -22,7 +22,6 @@ export class ModalFormComponent implements OnInit {
     nivelesEducativos = ['Primaria', 'Bachiller', 'Universitario', 'Otro']
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder, public matDialogRef: MatDialogRef<ModalFormComponent>) { 
 
-        console.log('data en el modal', data);
         this.paciente = data.paciente;
         this.tipo = data.tipo;
     }

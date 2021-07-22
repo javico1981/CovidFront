@@ -18,7 +18,6 @@ export class ModalFormUserComponent implements OnInit {
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder, public matDialogRef: MatDialogRef<ModalFormUserComponent>) { 
 
-        console.log('data en el modal', data);
         this.usuario = data.user;
         this.tipo = data.tipo;
     }
@@ -30,13 +29,18 @@ export class ModalFormUserComponent implements OnInit {
             id: [null],
             nombre: [null, [Validators.minLength(6), Validators.maxLength(100), Validators.required]],
             email: [null, [Validators.email, Validators.required, Validators.minLength(6), Validators.maxLength(100)]],
-            password: [null, [Validators.minLength(6), Validators.maxLength(100), Validators.required]],
+            password: [null],
             tipo_usuario: [2]
         })
 
 
         if (this.tipo === 'editar') {
-            this.usuarioForm.patchValue(this.usuario);
+            this.usuarioForm.patchValue({nombre: this.usuario.nombre, email: this.usuario.email, id: this.usuario.id});
+            this.usuarioForm.get('password').setValidators([Validators.minLength(6), Validators.maxLength(100)])
+            this.usuarioForm.get('password').updateValueAndValidity();
+        }else {
+            this.usuarioForm.get('password').setValidators([Validators.minLength(6), Validators.maxLength(100), Validators.required])
+            this.usuarioForm.get('password').updateValueAndValidity();
         }
 
     }

@@ -3,5 +3,6 @@ export interface User {
     nombre: string;
     email: string;
     password?: string;
+    tipo_usuario: number;
     created_at?: string;
 }

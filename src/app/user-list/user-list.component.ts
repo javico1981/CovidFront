@@ -33,7 +33,8 @@ export class UserListComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this._unsubscribeAll))
         .subscribe((usuarios: User[]) => {
             // Update the counts
-            this.usuarios = usuarios;
+
+            this.usuarios = usuarios.filter(x => x.tipo_usuario !== 1);
 
             this._changeDetectorRef.markForCheck();
         });
@@ -44,7 +45,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
       let informacion = {
         tipo: tipo,
-        paciente: user
+        user: user
       }
 
       const dialogRef = this._matDialog.open(ModalFormUserComponent, {
@@ -67,6 +68,9 @@ export class UserListComponent implements OnInit, OnDestroy {
   crearUsuario(user): void {
 
     const data = user;
+
+ 
+    data.password = window.btoa(user.email + ':' + user.password);
     
     this._commonService.postUsuario(data).then((res) => {
 
@@ -84,7 +88,10 @@ export class UserListComponent implements OnInit, OnDestroy {
   editarUsuario(user): void {
 
     const data = user;
-    
+
+    if (data.password) {
+      data.password = window.btoa(user.email + ':' + user.password);
+    }
 
     this._commonService.putUsuario(data).then((res) => {
 

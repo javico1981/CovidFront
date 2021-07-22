@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
     onSubmitForm(form): void {
 
         const data = form;
+       
         data.password = window.btoa(form.email + ':' + form.password);
         
         this.loading = true;
@@ -52,9 +53,7 @@ export class LoginComponent implements OnInit {
         modal.afterClosed().subscribe((res) => {
             if (res) {
 
-                console.log(res);
-                return;
-
+              
                 this._authService.restorePassword(res).then((res) => {
 
                     if (!res.errors) {
