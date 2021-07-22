@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { DashboardResolver } from '../../dashboard/dashboard.resolve';
+import { CommonResolver } from '../../services/common.resolve';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { TableListComponent } from '../../table-list/table-list.component';
 import { AdminLayoutComponent } from './admin-layout.component';
@@ -12,11 +12,15 @@ export const AdminLayoutRoutes: Routes = [
         children: [
             {   path: 'dashboard',      component: DashboardComponent, 
                 resolve:  {
-                    pacientes: DashboardResolver
+                    pacientes: CommonResolver
                 }
             },
             { path: 'user-profile',   component: UserProfileComponent },
-            { path: 'table-list',     component: TableListComponent },
+            { path: 'table-list',     component: TableListComponent,
+                resolve:  {
+                    pacientes: CommonResolver
+                } 
+            },
         ]
 
     },

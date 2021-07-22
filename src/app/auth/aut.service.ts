@@ -72,17 +72,12 @@ export class AuthService {
 
   updateUserData(form): Promise<any> {
 
-    console.log('lo que envio en el put de user', form)
-
     return new Promise((resolve, reject) => {
       this._httpClient.put(`${this.urlLocal}user/${form.id}`, form)
           .subscribe((response: any) => {
-            console.log('lo que responde el update', response);
-
               if (!response.errors) {
                 this.setUserData(response)
               }
-
               resolve(response);
           }, reject);
   });

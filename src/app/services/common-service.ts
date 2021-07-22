@@ -19,18 +19,6 @@ export class CommonService {
   constructor(private _router: Router, private _httpClient: HttpClient) { }
 
 
-  // getPacientes():  Promise<any> {
-
-  //   return new Promise((resolve, reject) => {
-  //     this._httpClient.get(`${this.urlLocal}paciente`)
-  //         .subscribe((response: any) => {
-  //           console.log('respuesta del get pacientes', response)
-  //             resolve(response);
-  //         }, reject);
-  //   });
-  // }
-
-
   get pacientes$(): Observable<Paciente[]>
      {
          return this._pacientes.asObservable();
@@ -50,11 +38,10 @@ export class CommonService {
   postPaciente(form): Promise<any>
     {
 
-      console.log('lo que envio al post paciente', form)
       return new Promise((resolve, reject) => {
           this._httpClient.post(`${this.urlLocal}paciente`, form)
               .subscribe((response: any) => {
-                  console.log('lo que retorna el post paciente', response)
+                
                   resolve(response);
               }, reject);
       });
@@ -63,11 +50,10 @@ export class CommonService {
 
   putPaciente(form): Promise<any>
     {
-        console.log('lo que envio al put paciente', form)
+  
         return new Promise((resolve, reject) => {
             this._httpClient.put(`${this.urlLocal}paciente/${form.id}`, form)
                 .subscribe((response: any) => { 
-                  console.log('lo que retorna el put paciente', response)
                     resolve(response);
                 }, reject);
         });
@@ -77,12 +63,10 @@ export class CommonService {
 
     deletePaciente(id): Promise<any>
     {
-      console.log('el id que envio al deleted paciente', id)
+     
         return new Promise((resolve, reject) => {
             this._httpClient.delete(`${this.urlLocal}paciente/${id}`)
                 .subscribe((response: any) => { 
-
-                  console.log('lo que retorna el deleted paciente', response)
                     resolve(response);
                 }, reject);
       });  

@@ -17,12 +17,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
   pacientes$: Observable<Paciente[]>;
 
   porcentajeHombres: number;
+  porcentajeHombresCantidad: number;
   porcentajeMujeres: number;
+  porcentajeMujeresCantidad: number;
 
   porcentajePrimaria: number;
+  porcentajePrimariaCantidad: number;
   porcentajeBachiller: number;
+  porcentajeBachillerCantidad: number;
   porcentajeUniversitario: number;
+  porcentajeUniversitarioCantidad: number;
   porcentajeOtro: number;
+  porcentajeOtroCantidad: number;
 
   labelsPorMes = [];
   seriesPorMes = [];
@@ -269,11 +275,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   calcularPorcentajes(): void {
     this.porcentajeHombres = this.pacientes.filter(x =>  x.genero === 'Masculino').length / this.pacientes.length * 100;
+    this.porcentajeHombresCantidad = this.pacientes.filter(x =>  x.genero === 'Masculino').length;
+
     this.porcentajeMujeres = this.pacientes.filter(x => x.genero === 'Femenino').length / this.pacientes.length * 100;
+    this.porcentajeMujeresCantidad = this.pacientes.filter(x => x.genero === 'Femenino').length;
+
     this.porcentajePrimaria = this.pacientes.filter(x => x.nivel_educativo === 'Primaria').length / this.pacientes.length * 100;
+    this.porcentajePrimariaCantidad = this.pacientes.filter(x => x.nivel_educativo === 'Primaria').length;
     this.porcentajeBachiller = this.pacientes.filter(x => x.nivel_educativo === 'Bachiller').length / this.pacientes.length * 100;
+    this.porcentajeBachillerCantidad = this.pacientes.filter(x => x.nivel_educativo === 'Bachiller').length;
     this.porcentajeUniversitario = this.pacientes.filter(x =>  x.nivel_educativo === 'Universitario').length / this.pacientes.length * 100;
+    this.porcentajeUniversitarioCantidad = this.pacientes.filter(x =>  x.nivel_educativo === 'Universitario').length;
     this.porcentajeOtro = this.pacientes.filter(x => x.nivel_educativo === 'Otro').length / this.pacientes.length * 100;
+    this.porcentajeOtroCantidad = this.pacientes.filter(x => x.nivel_educativo === 'Otro').length;
 
   }
 

@@ -4,7 +4,9 @@ import { Paciente } from './model/paciente.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalFormComponent } from './modal-form/modal-form.component';
 import { Observable, Subject } from 'rxjs';
+import { AuthService } from 'app/auth/aut.service';
 import { takeUntil } from 'rxjs/operators';
+import * as moment from 'moment';
 declare var $: any;
 
 @Component({
@@ -14,14 +16,17 @@ declare var $: any;
 })
 export class TableListComponent implements OnInit, OnDestroy {
 
+  userData: any;
   pacientes$: Observable<Paciente[]>;
   type = ['','info','success','warning','danger'];
   pacientes: Paciente[];
   private _unsubscribeAll: Subject<any> = new Subject<any>();
-  constructor(private _commonService: CommonService, private _matDialog: MatDialog, private _changeDetectorRef: ChangeDetectorRef) {
+  constructor(private _commonService: CommonService, private _matDialog: MatDialog, private _changeDetectorRef: ChangeDetectorRef, private _authService: AuthService) {
   }
 
   ngOnInit() {
+
+    this.userData = this._authService.getUserData();
 
     this.pacientes$ = this._commonService.pacientes$;
     this._commonService.pacientes$
@@ -30,7 +35,7 @@ export class TableListComponent implements OnInit, OnDestroy {
             // Update the counts
             this.pacientes = pacientes;
 
-        
+            this._changeDetectorRef.markForCheck();
         });
   }
 
@@ -62,15 +67,18 @@ export class TableListComponent implements OnInit, OnDestroy {
 
   crearPaciente(paciente): void {
 
-    this._commonService.postPaciente(paciente).then((res) => {
+    const data = paciente;
+    data.fecha_contagio = moment(paciente.fecha_contagio).format('YYYY-MM-DD');
+    data.created_by = this.userData.id;
+
+    this._commonService.postPaciente(data).then((res) => {
 
       if (!res.errors) {
+        this._commonService.getPacientes().subscribe();
         this.showNotification('success', 'Paciente creado')
       }else {
         this.showNotification('danger', 'Hubo un fallo al guardar')
       }
-
-      this._changeDetectorRef.markForCheck();
     })
 
     
@@ -78,13 +86,37 @@ export class TableListComponent implements OnInit, OnDestroy {
 
   editarPaciente(paciente): void {
 
-    console.log('paciente a editar', paciente);
+    const data = paciente;
+    data.fecha_contagio = moment(paciente.fecha_contagio).format('YYYY-MM-DD');
+    data.updated_by = this.userData.id;
+
+    this._commonService.putPaciente(data).then((res) => {
+
+      if (!res.errors) {
+        this._commonService.getPacientes().subscribe();
+        this.showNotification('success', 'Paciente editado')
+      }else {
+        this.showNotification('danger', 'Hubo un fallo al guardar')
+      }
+
+    })
 
   }
 
   eliminarPaciente(paciente): void {
 
-    console.log('paciente a eliminar', paciente);
+  
+    this._commonService.deletePaciente(paciente.id).then((res) => {
+
+      if (!res.errors) {
+        this._commonService.getPacientes().subscribe();
+        this.showNotification('success', 'Paciente eliminado')
+      }else {
+        this.showNotification('danger', 'Hubo un fallo al guardar')
+      }
+
+  
+    })
 
   }
 

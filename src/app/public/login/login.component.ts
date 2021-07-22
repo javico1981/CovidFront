@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
             if (res.logeado) {
                 this._router.navigate(['/app/dashboard'])
             }else {
-                console.log(res)
                 this.showNotification('danger', 'El email o la contraseña no son validos')
             }
             this.loading = false;

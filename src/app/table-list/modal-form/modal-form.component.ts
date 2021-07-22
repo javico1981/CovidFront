@@ -37,6 +37,8 @@ export class ModalFormComponent implements OnInit {
             genero: [null, [Validators.required]],
             nivel_educativo: [null, [Validators.required]],
             fecha_contagio: [null, [Validators.required]],
+            created_by: [null],
+            updated_by: [null],
         })
 
 
