@@ -27,14 +27,19 @@ export class RegistroComponent implements OnInit {
     }
 
     onSubmitForm(form): void {
+
+        
+        const data = form;
+        data.password = window.btoa(form.email + ':' + form.password);
+        
         this.loading = true;
-        this._authService.registrar(form).then((res) => {
+        this._authService.registrar(data).then((res) => {
 
             if (!res.errors) {
 
                 const formLogin = {
-                    email: form.email,
-                    password: form.password
+                    email: data.email,
+                    password: data.password
                 }
 
                 this._authService.logear(formLogin).then((res) => {

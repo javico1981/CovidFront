@@ -34,10 +34,11 @@ export class UserProfileComponent implements OnInit {
   
     const formData = form;
 
-    if (formData.password === '') {
+    if (formData.password === '' || formData.password === null) {
       formData.password === null
+    }else {
+      formData.password = window.btoa(form.email + ':' + form.password);
     }
-
 
     this.loading = true;
     

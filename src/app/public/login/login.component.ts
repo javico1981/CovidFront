@@ -27,8 +27,12 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmitForm(form): void {
+
+        const data = form;
+        data.password = window.btoa(form.email + ':' + form.password);
+        
         this.loading = true;
-        this._authService.logear(form).then((res) => {
+        this._authService.logear(data).then((res) => {
             if (res.logeado) {
                 this._router.navigate(['/app/dashboard'])
             }else {
