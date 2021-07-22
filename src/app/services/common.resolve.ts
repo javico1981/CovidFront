@@ -15,3 +15,15 @@ export class CommonResolver implements Resolve<any> {
     return this.service.getPacientes();
   }
 }
+
+@Injectable({ providedIn: 'root' })
+export class UsuariosResolver implements Resolve<any> {
+  constructor(private service: CommonService) {}
+
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<any>|Promise<any>|any {
+    return this.service.getUsuarios();
+  }
+}

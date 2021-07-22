@@ -1,6 +1,14 @@
 .button-container {
-    justify-content: space-evenly;
+    justify-content: flex-end;
     align-items: center;
+    padding: 0 25px;
+}
+
+.button-container2 {
+    justify-content: space-evenly;
+    margin-top: 10px;
+    align-items: center;
+
 }
 
 .registro-container {
@@ -9,4 +17,12 @@
 
 .text-center {
     text-align: center;
+}
+
+.card-header-custom {
+    background-color: rgba(0,66,114,255) !important;
+}
+
+.logoUniversidad {
+    max-width: 125px;
 }

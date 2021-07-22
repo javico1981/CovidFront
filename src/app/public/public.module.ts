@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import {MatRippleModule} from '@angular/material/core';
+import {MatDialogModule} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,13 +15,15 @@ import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 import { publicRoutes } from './public.routing';
 import { PublicComponent } from './public.component';
+import { ModalPasswordComponent } from './modal-password/modal-password.component';
 
 
 @NgModule({
     declarations: [
         PublicComponent,
         LoginComponent,
-        RegistroComponent
+        RegistroComponent,
+        ModalPasswordComponent
     ],
     imports: [
         RouterModule.forChild(publicRoutes),
@@ -29,6 +32,7 @@ import { PublicComponent } from './public.component';
         HttpClientModule,
         MatRippleModule,
         RouterModule,
+        MatDialogModule,
         MatFormFieldModule,
         MatIconModule,
         CommonModule,

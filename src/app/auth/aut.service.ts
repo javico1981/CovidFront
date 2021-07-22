@@ -84,4 +84,15 @@ export class AuthService {
 
   }
 
+  restorePassword(form): Promise<any> {
+
+    return new Promise((resolve, reject) => {
+      this._httpClient.post(`${this.urlLocal}user/restore_pendiente`, form)
+          .subscribe((response: any) => {
+              resolve(response);
+          }, reject);
+  });
+
+  }
+
 }

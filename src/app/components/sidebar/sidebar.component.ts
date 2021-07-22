@@ -21,10 +21,20 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
-
+  userData: any;
   constructor(private _authService: AuthService) { }
 
   ngOnInit() {
+
+    this.userData = this._authService.getUserData();
+
+    if (this.userData.tipo_usuario === 1) {
+
+      let ruta_admin = { path: '/app/user-list', title: 'Gestion usuarios',  icon:'manage_accounts', class: '' }
+
+      ROUTES.push(ruta_admin)
+    }
+
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
   isMobileMenu() {

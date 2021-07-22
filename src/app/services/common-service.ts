@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Paciente } from 'app/table-list/model/paciente.model';
+import { User } from 'app/user-list/model/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -15,8 +16,14 @@ export class CommonService {
   urlLocal= '/api/'
 
   private _pacientes: BehaviorSubject<Paciente[] | null> = new BehaviorSubject(null);
+  private _usuarios: BehaviorSubject<User[] | null> = new BehaviorSubject(null);
 
   constructor(private _router: Router, private _httpClient: HttpClient) { }
+
+  get usuarios$(): Observable<User[]>
+     {
+         return this._usuarios.asObservable();
+     }
 
 
   get pacientes$(): Observable<Paciente[]>
@@ -66,6 +73,49 @@ export class CommonService {
      
         return new Promise((resolve, reject) => {
             this._httpClient.delete(`${this.urlLocal}paciente/${id}`)
+                .subscribe((response: any) => { 
+                    resolve(response);
+                }, reject);
+      });  
+  }
+
+  getUsuarios():  Observable<User[]> {
+
+    return  this._httpClient.get<User[]>(`${this.urlLocal}user`).pipe(
+      tap((usuarios) => {
+          this._usuarios.next(usuarios);
+      })
+    );
+
+  }
+
+  putUsuario(form): Promise<any> {
+
+    return new Promise((resolve, reject) => {
+      this._httpClient.put(`${this.urlLocal}user/${form.id}`, form)
+          .subscribe((response: any) => {
+              resolve(response);
+          }, reject);
+    });
+
+  }
+
+  postUsuario(form): Promise<any> {
+
+    return new Promise((resolve, reject) => {
+        this._httpClient.post(`${this.urlLocal}user/register`, form)
+            .subscribe((response: any) => {
+                resolve(response);
+            }, reject);
+    });
+
+  }
+
+  deleteUsuario(id): Promise<any>
+    {
+     
+        return new Promise((resolve, reject) => {
+            this._httpClient.delete(`${this.urlLocal}user/${id}`)
                 .subscribe((response: any) => { 
                     resolve(response);
                 }, reject);

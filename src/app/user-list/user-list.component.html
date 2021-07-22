@@ -5,8 +5,8 @@
               <div class="card">
                   <div class="row card-header card-header-custom">
                       <div>
-                        <h4 class="card-title ">Pacientes</h4>
-                        <p class="card-category"> Gestion de pacientes</p>
+                        <h4 class="card-title ">Usuarios</h4>
+                        <p class="card-category"> Gestion de Usuarios</p>
                       </div>
 
                       <div>
@@ -22,48 +22,37 @@
                                         Nombre
                                     </th>
                                     <th>
-                                        Edad
+                                        Correo
                                     </th>
                                     <th>
-                                        Genero
-                                    </th>
-                                    <th>
-                                        Nivel educativo
-                                    </th>
-                                    <th>
-                                        Fecha contagio
+                                        Fecha creación
                                     </th>
                                     <th>
                                     </th>
                               </thead>
                               <tbody>
-                                  <tr *ngFor="let paciente of pacientes">
+                                  <tr *ngFor="let user of usuarios">
                                       <td>
-                                          {{paciente.nombre}}
-                                      </td>
-                                      <td>
-                                        {{paciente.edad}}
+                                          {{user.nombre}}
                                       </td>
                                       <td>
-                                        {{paciente.genero}}
+                                        {{user.email}}
                                       </td>
                                       <td>
-                                        {{paciente.nivel_educativo}}
+                                        {{user.created_at | date:'dd/MM/yyyy, h:mm a' }}
                                       </td>
-                                      <td class="text-primary">
-                                        {{paciente.fecha_contagio | date:'dd/MM/yyyy'}}
-                                      </td>
+
                                       <td>
                                         <button [matMenuTriggerFor]="menu" mat-icon-button color='primary'>
                                             <mat-icon>more_vert</mat-icon>
                                         </button>
                                         <mat-menu #menu="matMenu">
-                                            <button (click)="openModal('editar', paciente)" mat-menu-item>
+                                            <button (click)="openModal('editar', user)" mat-menu-item>
                                                 <mat-icon>edit</mat-icon>
                                                 <span>Editar</span>
                                               </button>
 
-                                              <button (click)="eliminarPaciente(paciente)" mat-menu-item>
+                                              <button (click)="eliminarPaciente(user)" mat-menu-item>
                                                 <mat-icon>delete</mat-icon>
                                                 <span>Eliminar</span>
                                               </button>

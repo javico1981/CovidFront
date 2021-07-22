@@ -9,6 +9,8 @@ import { MatMomentDateModule, MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { TableListComponent } from '../../table-list/table-list.component';
+import { UserListComponent } from 'app/user-list/user-list.component';
+import { ModalFormUserComponent } from 'app/user-list/modal-form/modal-form.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
@@ -55,7 +57,9 @@ registerLocaleData(localeEs, 'es');
     UserProfileComponent,
     TableListComponent,
     AdminLayoutComponent,
-    ModalFormComponent
+    ModalFormComponent,
+    UserListComponent,
+    ModalFormUserComponent
   ],
   providers   : [
     {
